@@ -1,10 +1,13 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
+
+import UserLogin from './components/UserLogin';
 
 function App() {
   return (
-    <div className="App App-header">
-      
+    <div className="App">
+      <Route path='/login' component={UserLogin} />
     </div>
   );
 }
