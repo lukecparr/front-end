@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const UserLogin = () => {
 	const credentials = {
@@ -22,6 +22,7 @@ const UserLogin = () => {
 					<Label for='password'>Password</Label>
 					<Input type='password' name='password' /*value={formValues.password}*/ /*onChange={handleChanges}*/ />
 				</FormGroup>
+				<Button>Submit</Button>
 			</Form>
 		</>
 	)
