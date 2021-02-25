@@ -1,29 +1,55 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Spinner, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
 import { useForm } from '../hooks';
 
+import './UserLogin.css';
+
 const UserLogin = () => {
-	const initialState = { username: '', password: '' };
+	const initialValues = { username: '', password: '' };
+	const [isLoading, setIsLoading] = useState(false);
 	
-	const [values, handleChanges, handleSubmit] = useForm(initialState, () => {console.log(values)});
+	const [values, handleChanges, handleSubmit] = useForm(
+		initialValues,
+		() => {
+			setIsLoading(true);
+			setTimeout(() => {
+				setIsLoading(false);
+				console.log(values);
+			}, 1000)
+		});
 
 
 	return (
-		<>
-			<h1>Here's the login component</h1>
-			<Form onSubmit={handleSubmit} >
-				<FormGroup>
-					<Label for='username'>Username</Label>
-					<Input type='text' name='username' value={values.username} onChange={handleChanges} />
-				</FormGroup>
-				<FormGroup>
-					<Label for='password'>Password</Label>
-					<Input type='password' name='password' value={values.password} onChange={handleChanges} />
-				</FormGroup>
-				<Button color="success">Submit</Button>
-			</Form>
-		</>
-	)
+    <div>
+      <Toast>
+        <ToastHeader>Login</ToastHeader>
+        <ToastBody>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label for="username" className="formLabel">Username</Label>
+              <Input
+                type="text"
+                name="username"
+                value={values.username}
+                onChange={handleChanges}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="password" className="formLabel">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChanges}
+              />
+            </FormGroup>
+            {isLoading === true ? <Spinner color="primary" /> : <Button color="primary" className="loginSubmit">Submit</Button>}
+          </Form>
+        </ToastBody>
+      </Toast>
+			<Alert color='secondary'>New to AnywhereFitness? <br/> <strong>Create an account.</strong></Alert>
+    </div>
+  );
 };
 
 export default UserLogin;
