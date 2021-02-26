@@ -1,8 +1,8 @@
-.toast {
+.signUp {
 	color: #282c34;
 	font-weight: bold;
 	width: 100rem;
-	/* height: 283px; */
+	height: 570px;
 	flex-basis: unset!important;
 	font-size: 1rem;
 }
@@ -10,6 +10,11 @@
 .formLabel {
 	display: flex;
 	justify-items: flex-start;
+}
+
+.mark, mark {
+	background-color: unset!important;
+	color: red;
 }
 
 .loginSubmit {
