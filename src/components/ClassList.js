@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import './ClassList.css'; 
 
 function ClassList (props) {
-  
 
-    const {classesD} = props;
+    console.log(props.classesD);
     return (
         <div className="class-list">
-            {classesD.map(eachClass => {
-                <div className="class-card" key={eachClass.id}>
+            {props.classesD.map(eachClass => {
+                return (
+                    <div className="class-card" key={eachClass.id}>
                 <Link to={`/class-list/${eachClass.id}`}> 
                     <img
                     className="class-mini-image"
@@ -21,6 +22,7 @@ function ClassList (props) {
                     <p>{eachClass.date}</p>
                 </Link>
                 </div>
+                )   
             })}
         </div>
     )}

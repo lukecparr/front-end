@@ -9,16 +9,17 @@ import ClassList from "./components/ClassList"
 import UserLogin from './components/UserLogin';
 
 function App() {
-  const [classes, setClasses] = useState(dummydata);
+  const [classesState, setClassesState] = useState(dummydata);
+  console.log(classesState);
 
   return (
     <div className="App">
       <Route path='/login' component={UserLogin} />
       <Route path="/class-list/:classID">
-        <EachClass classesD={classes} />
+        <EachClass classesD={classesState} />
       </Route>
-      <Route path="/class-list">
-        <ClassList classesD={classes} />
+      <Route path="/">
+        <ClassList classesD={classesState} />
       </Route>
     </div>
   );
