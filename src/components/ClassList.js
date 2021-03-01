@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import './ClassList.css'; 
 
 function ClassList (props) {
@@ -18,9 +18,9 @@ function ClassList (props) {
                         />
                     <h2>{eachClass.name}</h2>
                     <p>{eachClass.type}</p>
+                </Link>
                     <p>{eachClass.location}</p>
                     <p>{eachClass.date}</p>
-                </Link>
                 </div>
                 )   
             })}

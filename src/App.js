@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import './App.css';
 import EachClass from "./components/EachClass"
 
@@ -25,13 +25,15 @@ function App() {
           <Link to="/login">Login</Link>
         </div>
       </nav>
-      <Route path='/login' component={UserLogin} />
+      <Switch>
       <Route path="/class-list/:classID">
         <EachClass classesD={classesState} />
       </Route>
-      <Route path="/">
+      <Route path="/class-list">
         <ClassList classesD={classesState} />
       </Route>
+      <Route path='/login' component={UserLogin} />
+      </Switch>
     </div>
   );
 }

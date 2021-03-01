@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useParams, useRouteMatch, Route, NavLink, useHistory } from "react-router-dom";
-import ClassList from "./ClassList";
+import React from "react";
+import { useParams, useHistory } from "react-router-dom";
 
 // this component will be display each individual class once clicked on from the home page 
 // this will have all the details on each class and will also include the "Sign Up" button for users
@@ -37,14 +36,14 @@ function EachClass(props) {
                 />
             </div>
             <div className="class-title-wrapper">
-                <h2>{classSelected.name}</h2>
-                <h2>{classSelected.type}</h2>
-                <h2>{classSelected.intensity}</h2>
-                <h2>{classSelected.max_size}</h2>
-                <h2>{classSelected.date}</h2>
+                <h2> Class Name: {classSelected.name}</h2>
+                <h3> Class Type: {classSelected.type}</h3>
+                <h3> Intensity: {classSelected.intensity}</h3>
+                <h3> Max Capacity: {classSelected.max_size}</h3>
+                <h3> Date Available: {classSelected.date}</h3>
             </div>
             <div className="class-description">
-                <p>{classSelected.description}</p>
+            <p>{classSelected.description}</p>
             </div>
 
         </div>
