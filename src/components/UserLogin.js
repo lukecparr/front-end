@@ -23,7 +23,7 @@ const UserLogin = () => {
 
 
 	return (
-    <div>
+    <div className="login-page">
       <Toast>
         <ToastHeader>Login</ToastHeader>
         <ToastBody>

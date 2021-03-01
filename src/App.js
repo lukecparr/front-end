@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import './App.css';
 import EachClass from "./components/EachClass"
 
@@ -12,8 +12,19 @@ function App() {
   const [classesState, setClassesState] = useState(dummydata);
   console.log(classesState);
 
+  //need to add links with NAV 
+  // need to add title
+  // need to switch statement
+
   return (
     <div className="App">
+      <nav>
+        <h1 className="app-header">AnywhereFitness</h1>
+        <div className="nav-links">
+          <Link to="/class-list">Home - All Classes</Link>
+          <Link to="/login">Login</Link>
+        </div>
+      </nav>
       <Route path='/login' component={UserLogin} />
       <Route path="/class-list/:classID">
         <EachClass classesD={classesState} />
