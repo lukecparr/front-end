@@ -7,6 +7,7 @@ import dummydata from "./dummydata"
 import ClassList from "./components/ClassList"
 
 import UserLogin from './components/UserLogin';
+import NewUser from './components/NewUser';
 
 function App() {
   const [classesState, setClassesState] = useState(dummydata);
@@ -33,6 +34,7 @@ function App() {
         <ClassList classesD={classesState} />
       </Route>
       <Route path='/login' component={UserLogin} />
+      <Route path='/sign-up' component={NewUser} />
       </Switch>
     </div>
   );
