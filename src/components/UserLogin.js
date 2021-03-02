@@ -32,7 +32,7 @@ const UserLogin = () => {
 	});
 
 	return (
-		<div>
+		<div className='login'>
 			<Toast>
 				<ToastHeader>Login</ToastHeader>
 				<ToastBody>

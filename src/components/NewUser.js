@@ -24,8 +24,8 @@ const NewUser = () => {
 
 
 	return (
-    <div>
-      <Toast className="signUp">
+    <div className='signUp'>
+      <Toast>
         <ToastHeader>Sign up</ToastHeader>
         <ToastBody>
           <Form onSubmit={handleSubmit}>

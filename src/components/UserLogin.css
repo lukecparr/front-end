@@ -1,7 +1,9 @@
-.login-page {
+.login {
 	text-align: center;
-	background-color: #282c34;
-	min-height: 100vh;
+	/* background-color: #282c34; */
+	min-height: 50vh;
+	width: 22rem;
+	margin: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -35,4 +37,5 @@
 
 .alert {
 	font-size: 1rem;
+	width: 100%;
 }
