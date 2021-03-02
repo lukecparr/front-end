@@ -1,11 +1,31 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+nav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: calc(10px + 2vmin);
+  padding: 0 16px;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 32px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1c5d76;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.app-header {
+  color: #1c5d76;
 }
