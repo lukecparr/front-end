@@ -13,7 +13,7 @@ function EachClass(props) {
     const history = useHistory();
     // attached onclick event back to selection button
     const routeToHome = event => {
-        history.push("/class-list")
+        history.push("/")
     }
     //attached onclick event to sign-up form 
     const routeToSignUp = event => {
@@ -21,7 +21,7 @@ function EachClass(props) {
     }
     // iterating over arr of objects to find classes with matching ids as the one in the URL (params.itemID)
     // classSelected will be the variable that grabs each specific selected item. This will used in the JSX to display each class seperately 
-    const classesD = useContext(classContext);
+    const [classesD, fetchClasses] = useContext(classContext);
     
     const classSelected = classesD.find(eachClass => eachClass.id === Number(params.classID))
 
