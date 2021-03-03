@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { Button, Form, FormGroup, Label, Input, Spinner, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
+
+import { userContext } from '../contexts';
 
 import './NewUser.css';
 
 import axios from 'axios';
 
 const NewUser = () => {
+  const [, setUserRole] = useContext(userContext);
 	const initialValues = { name: '', username: '', email: '', password: '', role: '' }; //Initial form values
 	const [isLoading, setIsLoading] = useState(false); //State for progress spinner
   const history = useHistory();
@@ -24,6 +27,7 @@ const NewUser = () => {
           axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', {username: values.username, password: values.password})
 						.then(res => {
               localStorage.setItem('token', res.data.token);
+              setUserRole(res.data.role);
 							setIsLoading(false);
 							history.push('/');
 						})
@@ -88,7 +92,7 @@ const NewUser = () => {
 
 						{/* Auth code input */}
             <FormGroup>
-              <Label for="role" className="formLabel">Instructor Auth Code</Label>
+              <Label for="role" className="formLabel">User Role (instructor or client)<mark>*</mark></Label>
               <Input
                 type="text"
                 name="role"

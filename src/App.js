@@ -9,13 +9,14 @@ import UserLogin from './components/UserLogin';
 import NewUser from './components/NewUser';
 import PrivateRoute from './components/PrivateRoute';
 
-import { classContext } from './contexts';
+import { classContext, userContext } from './contexts';
 import axiosWithAuth from './utils/axiosWithAuth';
 
 import dummydata from './dummydata';
 
 function App() {
 	const [classes, setClasses] = useState(dummydata);
+	const [userRole, setUserRole] = useState('')
 	const history = useHistory();
 	
   const fetchClasses = () => {
@@ -45,18 +46,19 @@ function App() {
 				<h1 className='app-header'>AnywhereFitness</h1>
 				<div className='nav-links'>
 					<Link to='/'>Home - All Classes</Link>
-					<Button color="primary" onClick={logout}>Logout</Button>
+					<Button color='primary' onClick={logout}>Logout</Button>
 				</div>
 			</nav>
 
-			<classContext.Provider value={[classes, fetchClasses]}>
-				<PrivateRoute path='/class-list/:classID' component={EachClass} />
-				<PrivateRoute exact path='/' component={ClassList} />
-			</classContext.Provider>
+			<userContext.Provider value={[userRole, setUserRole]}>
+				<classContext.Provider value={[classes, fetchClasses]}>
+					<PrivateRoute path='/class-list/:classID' component={EachClass} />
+					<PrivateRoute exact path='/' component={ClassList} />
+				</classContext.Provider>
 
-
-			<Route path='/login' component={UserLogin} />
-			<Route path='/sign-up' component={NewUser} />
+				<Route path='/login' component={UserLogin} />
+				<Route path='/sign-up' component={NewUser} />
+			</userContext.Provider>
 		</div>
 	);
 }

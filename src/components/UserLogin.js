@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { Button, Form, FormGroup, Label, Input, Spinner, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
 import axios from 'axios';
 
+import { userContext } from '../contexts';
+
 import './UserLogin.css';
 
 const UserLogin = () => {
+	const [, setUserRole] = useContext(userContext);
 	const initialValues = { username: '', password: '' };
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
@@ -23,6 +26,7 @@ const UserLogin = () => {
 			axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', values)
 				.then(res => {
 					localStorage.setItem('token', res.data.token);
+					setUserRole(res.data.role)
 					setIsLoading(false);
 					history.push('/')
 				})
