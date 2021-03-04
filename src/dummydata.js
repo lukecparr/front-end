@@ -40,6 +40,4 @@ const dummydata = [
       }
 ]
 
-console.log(dummydata)
-
 export default dummydata;
