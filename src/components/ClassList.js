@@ -19,24 +19,22 @@ function ClassList() {
           <div className="class-list">
             {classes.map(eachClass => {
                 return (
-                    <div className="class-card" key={eachClass.id}>
-                <Link to={`/class-list/${eachClass.id}`}> 
-                    <Card>
-                    <CardImg
-                    top width="100%"
-                    src={eachClass.url}
-                    alt={eachClass.type}
-                        />
-                    <CardBody>
-                    <CardTitle tag="h5">{eachClass.name}</CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">{eachClass.type}</CardSubtitle>
-                    <CardText>{eachClass.location}</CardText>
-                    <CardText>{eachClass.date}</CardText>
-                    </CardBody>
-                    </Card>    
-                </Link>
-                </div>
-                )   
+									<div className='class-card' key={eachClass.id}>
+										<Link to={`/class-list/${eachClass.id}`}>
+											<Card>
+												<CardImg topWidth='100%' src={eachClass.url} alt={eachClass.type} />
+												<CardBody>
+													<CardTitle tag='h5'>{eachClass.name}</CardTitle>
+													<CardSubtitle tag='h6' className='mb-2 text-muted'>
+														{eachClass.type}
+													</CardSubtitle>
+													<CardText>{eachClass.location}</CardText>
+													<CardText>{eachClass.date}</CardText>
+												</CardBody>
+											</Card>
+										</Link>
+									</div>
+								);   
             })}
           </div>
         </>
