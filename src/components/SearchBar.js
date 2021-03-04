@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom"
 import ClassList from "./ClassList";
 import "./SearchBar.css";
 import * as yup from "yup";
 import { Button } from "reactstrap";
 
-function SearchBar(props) {
+import { classContext } from '../contexts';
 
-    const [searchD, setSearchD] = useState(props.classesD)
+function SearchBar() {
+    const [classes, fetchClasses, instructorAddNewClass, setClasses] = useContext(classContext);
+
+    const [searchD, setSearchD] = useState(classes)
     const [formState, setFormState] = useState({
         searchclass: ""
     })
     const [errors, setErrors] = useState({
         searchclass: ""
     })
-    const [buttonDisabled, setButtonDisabled] = useState(true)
 
     const formSchema = yup.object().shape({
         searchclass: yup.string().required("Please Insert Class Name")
@@ -46,7 +48,7 @@ function SearchBar(props) {
         setSearchD(searchD.filter(classList => 
             classList.name.toLowerCase().includes(formState.searchclass)))
         if (formState.searchclass === "") {
-            setSearchD(props.classesD);
+            setSearchD(classes);
         }
     } 
 

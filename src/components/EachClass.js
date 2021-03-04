@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 
-import { classContext } from '../contexts';
+import { classContext, userContext } from '../contexts';
 
 // this component will be display each individual class once clicked on from the home page 
 // this will have all the details on each class and will also include the "Sign Up" button for users
@@ -23,6 +23,7 @@ function EachClass(props) {
     // iterating over arr of objects to find classes with matching ids as the one in the URL (params.itemID)
     // classSelected will be the variable that grabs each specific selected item. This will used in the JSX to display each class seperately 
     const [classesD, fetchClasses] = useContext(classContext);
+    const [userRole] = useContext(userContext);
     
     const classSelected = classesD.find(eachClass => eachClass.id === Number(params.classID))
 
@@ -35,7 +36,7 @@ function EachClass(props) {
                 alt={classSelected.name}
                 />
             </div>
-            <Button color="secondary" size="lg" className="sign-up-button" onClick={routeToSignUp}>Sign Up!</Button>
+            {userRole === 'instructor' ? <Button color='primary' size="lg" onClick={() => history.push(`/edit-class/${classSelected.id}`)}>Edit Class</Button> : <Button color="secondary" size="lg" className="sign-up-button" onClick={routeToSignUp}>Sign Up!</Button>}
             <div className="class-title-wrapper">
                 <h2> Class Name: {classSelected.name}</h2>
                 <h3> Class Type: {classSelected.type}</h3>

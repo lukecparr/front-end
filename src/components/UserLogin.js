@@ -26,6 +26,7 @@ const UserLogin = () => {
 			axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', values)
 				.then(res => {
 					localStorage.setItem('token', res.data.token);
+					localStorage.setItem('userRole', res.data.role);
 					setUserRole(res.data.role)
 					setIsLoading(false);
 					history.push('/')

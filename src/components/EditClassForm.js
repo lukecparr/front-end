@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useParams, useHistory } from 'react-router-dom';
 import { Button } from "reactstrap";
-import "./NewClassForm.css";
+import "./EditClassForm.css";
 
 import { classContext } from '../contexts';
 
-function NewClassForm() {
-    const [, , instructorAddNewClass] = useContext(classContext);
-    const [instructorNewClass, setInstructorNewClass] = useState({
-        id: "",
-        name: '',
-        instructor_name: '',
-        type: '',
-        intensity: '',
-        location: '',
-        date: '',
-        description: "",
-        url: ""
-    })
+function EditClassForm() {
+    const history = useHistory();
+    const [classes, , , , instructorEditClass] = useContext(classContext);
+    // const params = useParams();
+
+    //TODO - Mocking params here because I can't get them to work
+    const params = { classID: 1 };
+
+    const classSelected = classes.find(eachClass => eachClass.id === Number(params.classID))
+    
+    const [editedClass, setEditedClass] = useState(classSelected)
 
     const handleChanges = (event) => {
-        const newStateObj = {...instructorNewClass, [event.target.name]: event.target.value};
-        setInstructorNewClass(newStateObj);
+        const newStateObj = {...editedClass, [event.target.name]: event.target.value};
+        setEditedClass(newStateObj);
     }
-
-    const submitAddition = (event) => {
+    
+    //TODO - This needs to be reworked to update the existing object
+    const submitEdit = (event) => {
        event.preventDefault();
-       instructorAddNewClass(instructorNewClass);
-       setInstructorNewClass({
+       instructorEditClass(editedClass);
+       setEditedClass({
         id: "",
         name: '',
         instructor_name: '',
@@ -38,10 +38,12 @@ function NewClassForm() {
         date: '',
         description: "",
         url: "" 
-       })
+       });
+       history.push(`/class-list/${params.classID}`)
+       //TODO - Need to add routing to go back to /class-list/:classID
     }
     return (
-        <form onSubmit={submitAddition} className="newClassForm">
+        <form onSubmit={submitEdit} className="editClassForm">
             <label htmlFor="title">
                 Class Name:
                 <input
@@ -49,7 +51,7 @@ function NewClassForm() {
                 type="text"
                 placeholder="enter class name"
                 name="name"
-                value={instructorNewClass.name}
+                value={editedClass.name}
                 onChange={handleChanges}
                 />
             </label>
@@ -60,7 +62,7 @@ function NewClassForm() {
                 type="text"
                 placeholder="enter your name"
                 name="instructor_name"
-                value={instructorNewClass.instructor_name}
+                value={editedClass.instructor_name}
                 onChange={handleChanges}
                 />
             </label>
@@ -71,7 +73,7 @@ function NewClassForm() {
                 type="text"
                 placeholder="enter intensity"
                 name="intensity"
-                value={instructorNewClass.intensity}
+                value={editedClass.intensity}
                 onChange={handleChanges}
                 />
             </label>
@@ -82,7 +84,7 @@ function NewClassForm() {
                 type="text"
                 placeholder="enter class location"
                 name="location"
-                value={instructorNewClass.location}
+                value={editedClass.location}
                 onChange={handleChanges}
                 />
             </label>
@@ -92,7 +94,7 @@ function NewClassForm() {
                 id="start"
                 type="date"
                 name="date"
-                value={instructorNewClass.date}
+                value={editedClass.date}
                 onChange={handleChanges}
                 />
             </label>
@@ -103,7 +105,7 @@ function NewClassForm() {
                 type="textarea"
                 placeholder="enter class description"
                 name="description"
-                value={instructorNewClass.description}
+                value={editedClass.description}
                 onChange={handleChanges}
                 />
             </label>
@@ -114,7 +116,7 @@ function NewClassForm() {
                 type="url"
                 placeholder="enter image link"
                 name="url"
-                value={instructorNewClass.url}
+                value={editedClass.url}
                 pattern="https://.*"
                 onChange={handleChanges}
                 />
@@ -124,6 +126,6 @@ function NewClassForm() {
     )
 }
 
-export default NewClassForm;
+export default EditClassForm;
 
 // linking this component to the instructor login 
