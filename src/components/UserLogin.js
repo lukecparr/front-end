@@ -35,7 +35,8 @@ const UserLogin = () => {
 						setError('User not found');
 						setIsLoading(false);
 					} else {
-						console.log(err.message);
+						setError(err.message);
+						setIsLoading(false);
 					}
 				});
 		}
