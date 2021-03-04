@@ -5,10 +5,13 @@
   width: 100%;
 }
 
+.app-header {
+  color: #1c5d76;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0 16px;
   border-bottom: 1px solid #efefef;
   margin-bottom: 32px;
@@ -21,11 +24,9 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: #1c5d76;
+  color: #262626;
   font-weight: bold;
   margin-right: 8px;
+  align-items: center;
 }
 
-.app-header {
-  color: #1c5d76;
-}
