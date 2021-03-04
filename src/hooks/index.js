@@ -14,6 +14,6 @@ export const useForm = (initialValues, callback) => {
 		e.preventDefault();
 		callback();
 	}
-
+	
 	return [values, handleChanges, handleSubmit];
 };

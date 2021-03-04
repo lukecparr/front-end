@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { Button } from "reactstrap";
 
 import { classContext } from '../contexts';
 
@@ -27,25 +28,23 @@ function EachClass(props) {
 
     return (
         <div className="class-wrapper">
-            <button className="go-back-button" onClick={routeToHome}>Back to Class Selection..</button>
-            <button className="sign-up-button" onClick={routeToSignUp}>Sign Up!</button>
+            <Button color="primary" size="lg" className="go-back-button" onClick={routeToHome}>Back to Class Selection..</Button>
             <div className="image-wrapper">
                 <img 
                 src={classSelected.url}
                 alt={classSelected.name}
                 />
             </div>
+            <Button color="secondary" size="lg" className="sign-up-button" onClick={routeToSignUp}>Sign Up!</Button>
             <div className="class-title-wrapper">
                 <h2> Class Name: {classSelected.name}</h2>
                 <h3> Class Type: {classSelected.type}</h3>
                 <h3> Intensity: {classSelected.intensity}</h3>
-                <h3> Max Capacity: {classSelected.max_size}</h3>
                 <h3> Date Available: {classSelected.date}</h3>
             </div>
             <div className="class-description">
             <p>{classSelected.description}</p>
             </div>
-
         </div>
     )
 }

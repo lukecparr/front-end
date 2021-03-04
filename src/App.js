@@ -3,8 +3,13 @@ import { Route, Link, useHistory } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './App.css';
 
-import EachClass from "./components/EachClass"
 import ClassList from "./components/ClassList"
+import EachClass from "./components/EachClass"
+import NewClassForm from "./components/NewClassForm"
+
+import dummydata from "./dummydata"
+import SearchBar from "./components/SearchBar"
+
 import UserLogin from './components/UserLogin';
 import NewUser from './components/NewUser';
 import PrivateRoute from './components/PrivateRoute';
@@ -24,6 +29,11 @@ function App() {
 			.then(res => setClasses(res.data.data))
 			.catch(err => console.log(err.message))
 	}
+  
+  // function to enable instructors to add new classes
+  const instructorAddNewClass = (c) => {
+    setClassesState([...classesState, {...c, id: Date.now()}])
+  }
 
   useEffect(() => {
     //Gets classes on app render
@@ -53,7 +63,8 @@ function App() {
 			<userContext.Provider value={[userRole, setUserRole]}>
 				<classContext.Provider value={[classes, fetchClasses]}>
 					<PrivateRoute path='/class-list/:classID' component={EachClass} />
-					<PrivateRoute exact path='/' component={ClassList} />
+					<PrivateRoute exact path='/' component={SearchBar} />
+          <PrivateRoute path="/newclass-form" component={NewClassForm} />
 				</classContext.Provider>
 
 				<Route path='/login' component={UserLogin} />
