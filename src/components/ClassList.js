@@ -1,26 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './ClassList.css'; 
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 
 function ClassList (props) {
 
-    console.log(props.classesD);
+    // console.log(props.classesD);
     return (
         <div className="class-list">
             {props.classesD.map(eachClass => {
                 return (
                     <div className="class-card" key={eachClass.id}>
                 <Link to={`/class-list/${eachClass.id}`}> 
-                    <img
-                    className="class-mini-image"
+                    <Card>
+                    <CardImg
+                    top width="100%"
                     src={eachClass.url}
                     alt={eachClass.type}
                         />
-                    <h2>{eachClass.name}</h2>
-                    <p>{eachClass.type}</p>
+                    <CardBody>
+                    <CardTitle tag="h5">{eachClass.name}</CardTitle>
+                    <CardSubtitle tag="h6" className="mb-2 text-muted">{eachClass.type}</CardSubtitle>
+                    <CardText>{eachClass.location}</CardText>
+                    <CardText>{eachClass.date}</CardText>
+                    </CardBody>
+                    </Card>    
                 </Link>
-                    <p>{eachClass.location}</p>
-                    <p>{eachClass.date}</p>
                 </div>
                 )   
             })}

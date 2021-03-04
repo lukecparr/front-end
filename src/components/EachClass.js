@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { Button } from "reactstrap";
 
 // this component will be display each individual class once clicked on from the home page 
 // this will have all the details on each class and will also include the "Sign Up" button for users
@@ -27,25 +28,23 @@ function EachClass(props) {
     const classSelected = props.classesD.find(eachClass => eachClass.id === Number(params.classID))
     return (
         <div className="class-wrapper">
-            <button className="go-back-button" onClick={routeToHome}>Back to Class Selection..</button>
-            <button className="sign-up-button" onClick={routeToSignUp}>Sign Up!</button>
+            <Button color="primary" size="lg" className="go-back-button" onClick={routeToHome}>Back to Class Selection..</Button>
             <div className="image-wrapper">
                 <img 
                 src={classSelected.url}
                 alt={classSelected.name}
                 />
             </div>
+            <Button color="secondary" size="lg" className="sign-up-button" onClick={routeToSignUp}>Sign Up!</Button>
             <div className="class-title-wrapper">
                 <h2> Class Name: {classSelected.name}</h2>
                 <h3> Class Type: {classSelected.type}</h3>
                 <h3> Intensity: {classSelected.intensity}</h3>
-                <h3> Max Capacity: {classSelected.max_size}</h3>
                 <h3> Date Available: {classSelected.date}</h3>
             </div>
             <div className="class-description">
             <p>{classSelected.description}</p>
             </div>
-
         </div>
     )
 }
