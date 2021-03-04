@@ -1,38 +1,49 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { Button, Form, FormGroup, Label, Input, Spinner, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
 import axios from 'axios';
 
+import { userContext } from '../contexts';
+
 import './UserLogin.css';
 
 const UserLogin = () => {
+	const [, setUserRole] = useContext(userContext);
 	const initialValues = { username: '', password: '' };
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const history = useHistory();
 
-	const [values, handleChanges, handleSubmit] = useForm(initialValues, () => {
-		setError('');
-		setIsLoading(true);
-		axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', values)
-			.then(res => {
-				console.log(res);
-				localStorage.setItem('token', res.data.token);
-				setIsLoading(false);
-				//needs to redirect to a PrivateRoute
-			})
-			.catch(err => {
-				if (err.message === 'Request failed with status code 404') {
-					setError('User not found');
+	//Custom hook for managing inputs
+	const [values, handleChanges, handleSubmit] = useForm(
+		initialValues,
+		//Function to run on form submit
+		() => {
+			//Logs user in with form values then redirects to home page
+			setError('');
+			setIsLoading(true);
+			axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', values)
+				.then(res => {
+					localStorage.setItem('token', res.data.token);
+					setUserRole(res.data.role)
 					setIsLoading(false);
-				} else {
-					console.log(err.message);
-				}
-			});
-	});
+					history.push('/')
+				})
+				.catch(err => {
+					if (err.message === 'Request failed with status code 404') {
+						setError('User not found');
+						setIsLoading(false);
+					} else {
+						setError(err.message);
+						setIsLoading(false);
+					}
+				});
+		}
+	);
 
 	return (
-		<div>
+		<div className='login'>
 			<Toast>
 				<ToastHeader>Login</ToastHeader>
 				<ToastBody>
@@ -74,7 +85,7 @@ const UserLogin = () => {
 
 			{/* Submit button and progress spinner */}
 			<Alert color='secondary'>
-				New to AnywhereFitness? <br />{' '}
+				New to AnywhereFitness? <br/>
 				<strong>
 					<Link to='/sign-up'>Create an account.</Link>
 				</strong>

@@ -1,31 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { Button, Form, FormGroup, Label, Input, Spinner, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
+
+import { userContext } from '../contexts';
 
 import './NewUser.css';
 
 import axios from 'axios';
 
 const NewUser = () => {
-	const initialValues = { name: '', username: '', email: '', password: '', role: '' };
-	const [isLoading, setIsLoading] = useState(false);
+  const [, setUserRole] = useContext(userContext);
+	const initialValues = { name: '', username: '', email: '', password: '', role: '' }; //Initial form values
+	const [isLoading, setIsLoading] = useState(false); //State for progress spinner
+  const history = useHistory();
 	
+  //Custom hook for managing inputs
 	const [values, handleChanges, handleSubmit] = useForm(
 		initialValues,
-		() => {
-      setIsLoading(true);
-			console.log(values);
-      //api call goes here
-			axios.post('https://anytime-fitness.herokuapp.com/api/auth/register', values)
-				.then((res) => {console.log(res)})
-				.catch((err) => {console.log(err.message)})
+		//Function to run on form submit.
+    () => {
+      //Registers the user with form values then, if successful, logs the user in and redirects to home page.
+			setIsLoading(true);
+      axios.post('https://anytime-fitness.herokuapp.com/api/auth/register', values)
+				.then(res => {
+          axios.post('https://anytime-fitness.herokuapp.com/api/auth/login', {username: values.username, password: values.password})
+						.then(res => {
+              localStorage.setItem('token', res.data.token);
+              setUserRole(res.data.role);
+							setIsLoading(false);
+							history.push('/');
+						})
+            .catch((err) => console.log(err.message));
+				})
+				.catch(err => {
+					console.log(err.message);
+				});
 		});
 
 
 	return (
-    <div>
-      <Toast className="signUp">
+    <div className='signUp'>
+      <Toast>
         <ToastHeader>Sign up</ToastHeader>
         <ToastBody>
           <Form onSubmit={handleSubmit}>
@@ -76,7 +92,7 @@ const NewUser = () => {
 
 						{/* Auth code input */}
             <FormGroup>
-              <Label for="role" className="formLabel">Instructor Auth Code</Label>
+              <Label for="role" className="formLabel">User Role (instructor or client)<mark>*</mark></Label>
               <Input
                 type="text"
                 name="role"

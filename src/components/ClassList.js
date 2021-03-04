@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import './ClassList.css'; 
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 
-function ClassList (props) {
+import { classContext, userContext } from '../contexts/index';
 
-    // console.log(props.classesD);
+
+function ClassList() {
+	const [classes] = useContext(classContext);
+	const [userRole] = useContext(userContext);
+
     return (
-        <div className="class-list">
-            {props.classesD.map(eachClass => {
+        <>
+			    {/* Here's how we can do conditional elements for instructors vs clients */}
+			    {userRole === 'instructor' ? <h1>Logged in as {userRole}</h1> : ''}
+      
+          <div className="class-list">
+            {classes.map(eachClass => {
                 return (
                     <div className="class-card" key={eachClass.id}>
                 <Link to={`/class-list/${eachClass.id}`}> 
@@ -29,7 +38,8 @@ function ClassList (props) {
                 </div>
                 )   
             })}
-        </div>
+          </div>
+        </>
     )}
 
 export default ClassList;
