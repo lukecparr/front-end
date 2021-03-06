@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom"
+import React, { useState, useContext } from "react";
 import ClassList from "./ClassList";
 import "./SearchBar.css";
 import * as yup from "yup";
@@ -8,7 +7,7 @@ import { Button } from "reactstrap";
 import { classContext } from '../contexts';
 
 function SearchBar() {
-    const [classes, fetchClasses, instructorAddNewClass, setClasses] = useContext(classContext);
+    const [classes] = useContext(classContext);
 
     const [searchD, setSearchD] = useState(classes)
     const [formState, setFormState] = useState({

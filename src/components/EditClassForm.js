@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, useHistory } from 'react-router-dom';
 import { Button } from "reactstrap";
 import "./EditClassForm.css";
@@ -8,12 +8,12 @@ import { classContext } from '../contexts';
 function EditClassForm() {
     const history = useHistory();
     const [classes, , , , instructorEditClass] = useContext(classContext);
-    // const params = useParams();
+    const params = useParams();
 
     //TODO - Mocking params here because I can't get them to work
-    const params = { classID: 1 };
+    const fakeParams = { classID: 1 };
 
-    const classSelected = classes.find(eachClass => eachClass.id === Number(params.classID))
+    const classSelected = classes.find(eachClass => eachClass.id === Number(fakeParams.classID))
     
     const [editedClass, setEditedClass] = useState(classSelected)
 
@@ -40,8 +40,8 @@ function EditClassForm() {
         url: "" 
        });
        history.push(`/class-list/${params.classID}`)
-       //TODO - Need to add routing to go back to /class-list/:classID
     }
+    
     return (
         <form onSubmit={submitEdit} className="editClassForm">
             <label htmlFor="title">

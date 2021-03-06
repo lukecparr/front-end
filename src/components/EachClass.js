@@ -22,7 +22,7 @@ function EachClass(props) {
     }
     // iterating over arr of objects to find classes with matching ids as the one in the URL (params.itemID)
     // classSelected will be the variable that grabs each specific selected item. This will used in the JSX to display each class seperately 
-    const [classesD, fetchClasses] = useContext(classContext);
+    const [classesD] = useContext(classContext);
     const [userRole] = useContext(userContext);
     
     const classSelected = classesD.find(eachClass => eachClass.id === Number(params.classID))
