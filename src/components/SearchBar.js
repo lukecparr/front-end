@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import ClassList from "./ClassList";
 import "./SearchBar.css";
 import * as yup from "yup";
-import { Button } from "reactstrap";
+import { Button, Input, Form, Label, FormGroup } from "reactstrap";
 
 import { classContext } from '../contexts';
 
@@ -52,30 +52,35 @@ function SearchBar() {
     } 
 
     return (
-        <>
-        <div className="search-bar-wrapper">
-            <form className="search-form" onSubmit={submitSearch}>
-                <label htmlFor="search-class">
-                Search Class
-                    <input
-                    id="search-class"
-                    type="text"
-                    name="searchclass"
-                    value={formState.searchtext}
-                    onChange={inputChange}
-                    placeholder="Search Classess.."
-                />
-                { errors.searchclass.length > 0 ? <p>{errors.searchclass}</p> : null }
-                </label>
-                <Button color="primary" size="sm" type="submit">Search Classes</Button>
-            </form>
-
-        </div>
-        {/* need to add logic here that filters through classes depending on search  */}
-        <ClassList classesD={searchD} />
-        {console.log(searchD)}
-        </>
-    )
+			<>
+				<div className='search-bar-wrapper'>
+					<Form className='search-form' onSubmit={submitSearch}>
+						<FormGroup>
+							<Label htmlFor='search-class'>
+								Search Class
+								<Input
+									id='search-class'
+									type='text'
+									name='searchclass'
+									value={formState.searchtext}
+									onChange={inputChange}
+									placeholder='Search for something'
+								/>
+								{errors.searchclass.length > 0 ? (
+									<p>{errors.searchclass}</p>
+								) : null}
+							</Label>
+							{/* <Button color='primary' type='submit'>
+								Search Classes
+							</Button> */}
+						</FormGroup>
+					</Form>
+				</div>
+				{/* need to add logic here that filters through classes depending on search  */}
+				<ClassList classesD={searchD} />
+				{console.log(searchD)}
+			</>
+		);
 }
 
 export default SearchBar;

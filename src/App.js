@@ -26,7 +26,7 @@ function App() {
 			.then(res => setClasses(res.data.data))
 			.catch(err => console.log(err.message));
 	};
-
+ 
 	// function to enable instructors to add new classes
 	const instructorAddNewClass = c => {
 		setClasses([...classes, { ...c, id: Date.now() }]);
